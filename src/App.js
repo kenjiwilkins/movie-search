@@ -13,6 +13,7 @@ function App() {
   const [title, setTitle] = React.useState('movie search');
   const [search, setSearch] = React.useState('');
   const [page, setPage] = React.useState(1);
+  const [totalPage, setTotalPage] = React.useState(100);
   const [result, setResult] = React.useState(undefined);
   const [mode, setMode] = React.useState(0);
 
@@ -32,7 +33,10 @@ function App() {
       }
       })
       .then((response)=>{
-        setResult(response)
+        setResult(response);
+        setTotalPage(
+            Math.ceil(response.data.totalResults/10)
+          )
       })
       .catch((error)=>{
         console.log(error)
@@ -57,6 +61,24 @@ function App() {
   function handleSearch(value){
     setSearch(value);
   };
+
+  function pagenation(button){
+
+    if(button === 'prev'){
+      if(page === 1){
+        return true
+      } else {
+        return false
+      }
+    }
+    else if (button === 'next'){
+      if(totalPage === page || page >= 100){
+        return true
+      } else {
+        return false
+      }
+    }
+  }
 
   return (
     <div className="App">
@@ -136,8 +158,8 @@ function App() {
               </GridList>
             }
             <ButtonGroup color='primary' style={{paddingTop:8}}>
-              <Button onClick={() => handlePage(page-1)}>Prev</Button>
-              <Button onClick={() => handlePage(page+1)}>Next</Button>
+              <Button disabled={pagenation('prev')} onClick={() => handlePage(page-1)}>Prev</Button>
+              <Button disabled={pagenation('next')} onClick={() => handlePage(page+1)}>Next</Button>
             </ButtonGroup>
           </React.Fragment>}
         </Grid>
