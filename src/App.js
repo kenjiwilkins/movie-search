@@ -25,7 +25,7 @@ function App() {
       "headers":{
       "content-type":"application/octet-stream",
       "x-rapidapi-host":"movie-database-imdb-alternative.p.rapidapi.com",
-      "x-rapidapi-key":"ed7fde0a9cmshc202e0473cb33c2p17f7f2jsnb33de64f6ded"
+      "x-rapidapi-key":"YOUR_API_KEY"
       },"params":{
       "page":page,
       "r":"json",
